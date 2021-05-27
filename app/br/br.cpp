@@ -160,8 +160,8 @@ public:
                 check((parc >= 2) && (parc <= 5), "Incorrect parameter count for 'evalClustering'.");
                 br_eval_clustering(parv[0], parv[1], parc > 2 ? parv[2] : "", parc > 3 ? atoi(parv[3]) : 1, parc > 4 ? parv[4] : "");
             } else if (!strcmp(fun, "evalDetection")) {
-                check((parc >= 2) && (parc <= 7), "Incorrect parameter count for 'evalDetection'.");
-                br_eval_detection(parv[0], parv[1], parc >= 3 ? parv[2] : "", parc >= 4 ? atoi(parv[3]) : 0, parc >= 5 ? atoi(parv[4]) : 0, parc >= 6 ? atoi(parv[5]) : 0, parc >= 7 ? atof(parv[6]) : 0);
+                check((parc >= 2) && (parc <= 8), "Incorrect parameter count for 'evalDetection'.");
+                br_eval_detection(parv[0], parv[1], parc >= 3 ? parv[2] : "", parc >= 4 ? atoi(parv[3]) : 0, parc >= 5 ? atoi(parv[4]) : 0, parc >= 6 ? atoi(parv[5]) : 0, parc >= 7 ? atof(parv[6]) : 0, parc >= 8 ? parv[7] : "");
             } else if (!strcmp(fun, "evalLandmarking")) {
                 check((parc >= 2) && (parc <= 7), "Incorrect parameter count for 'evalLandmarking'.");
                 br_eval_landmarking(parv[0], parv[1], parc >= 3 ? parv[2] : "", parc >= 4 ? atoi(parv[3]) : 0, parc >= 5 ? atoi(parv[4]) : 1,  parc >= 6 ? atoi(parv[5]) : 0, parc >= 7 ? atoi(parv[6]) : 5);
@@ -192,6 +192,9 @@ public:
             } else if (!strcmp(fun, "plotKNN")) {
                 check(parc >=2, "Incorrect parameter count for 'plotKNN'.");
                 br_plot_knn(parc-1, parv, parv[parc-1], true);
+            } else if (!strcmp(fun, "plotEER")) {
+                check(parc >= 2, "Incorrect parameter count for 'plotEER'.");
+                br_plot_eer(parc-1, parv, parv[parc-1], true);
             } else if (!strcmp(fun, "project")) {
                 check(parc == 2, "Insufficient parameter count for 'project'.");
                 br_project(parv[0], parv[1]);
@@ -287,7 +290,7 @@ private:
                "-convert (Format|Gallery|Output) <input_file> {output_file}\n"
                "-evalClassification <predicted_gallery> <truth_gallery> <predicted property name> <ground truth proprty name>\n"
                "-evalClustering <clusters> <truth_gallery> [truth_property [cluster_csv [cluster_property]]]\n"
-               "-evalDetection <predicted_gallery> <truth_gallery> [{csv}] [{normalize}] [{minSize}] [{maxSize}]\n"
+               "-evalDetection <predicted_gallery> <truth_gallery> [{csv}] [{normalize}] [{minSize}] [{maxSize}] [{label_filter}]\n"
                "-evalLandmarking <predicted_gallery> <truth_gallery> [{csv} [<normalization_index_a> <normalization_index_b>] [sample_index] [total_examples]]\n"
                "-evalRegression <predicted_gallery> <truth_gallery> <predicted property name> <ground truth property name>\n"
                "-evalKNN <knn_graph> <knn_truth> [{csv}]\n"
@@ -298,6 +301,7 @@ private:
                "-plotLandmarking <file> ... <file> {destination}\n"
                "-plotMetadata <file> ... <file> <columns>\n"
                "-plotKNN <file> ... <file> {destination}\n"
+               "-plotEER <file> ... <file> {destination}\n"
                "-project <input_gallery> {output_gallery}\n"
                "-deduplicate <input_gallery> <output_gallery> <threshold>\n"
                "-likely <input_type> <output_type> <output_likely_source>\n"

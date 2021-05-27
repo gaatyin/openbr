@@ -58,7 +58,7 @@ BR_EXPORT void br_eval_classification(const char *predicted_gallery, const char 
 
 BR_EXPORT void br_eval_clustering(const char *clusters, const char *truth_gallery, const char *truth_property = "", bool cluster_csv = true, const char *cluster_property = "");
 
-BR_EXPORT float br_eval_detection(const char *predicted_gallery, const char *truth_gallery, const char *csv = "", bool normalize = false, int minSize = 0, int maxSize = 0, float relativeMinSize = 0);
+BR_EXPORT float br_eval_detection(const char *predicted_gallery, const char *truth_gallery, const char *csv = "", bool normalize = false, int minSize = 0, int maxSize = 0, float relativeMinSize = 0, const char* label = "");
 
 BR_EXPORT float br_eval_landmarking(const char *predicted_gallery, const char *truth_gallery, const char *csv = "", int normalization_index_a = 0, int normalization_index_b = 1, int sample_index = 0, int total_examples = 5);
 
@@ -96,6 +96,8 @@ BR_EXPORT bool br_plot_landmarking(int num_files, const char *files[], const cha
 BR_EXPORT bool br_plot_metadata(int num_files, const char *files[], const char *columns, bool show = false);
 
 BR_EXPORT bool br_plot_knn(int num_files, const char *files[], const char *destination, bool show = false);
+
+BR_EXPORT bool br_plot_eer(int num_files, const char *files[], const char *destination, bool show = false);
 
 BR_EXPORT float br_progress();
 

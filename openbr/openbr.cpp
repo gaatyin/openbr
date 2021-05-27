@@ -126,9 +126,9 @@ void br_eval_clustering(const char *clusters, const char *truth_gallery, const c
     EvalClustering(clusters, truth_gallery, truth_property, cluster_csv, cluster_property);
 }
 
-float br_eval_detection(const char *predicted_gallery, const char *truth_gallery, const char *csv, bool normalize, int minSize, int maxSize, float relativeMinSize)
+float br_eval_detection(const char *predicted_gallery, const char *truth_gallery, const char *csv, bool normalize, int minSize, int maxSize, float relativeMinSize, const char* label)
 {
-    return EvalDetection(predicted_gallery, truth_gallery, csv, normalize, minSize, maxSize, relativeMinSize);
+    return EvalDetection(predicted_gallery, truth_gallery, csv, normalize, minSize, maxSize, relativeMinSize, label);
 }
 
 float br_eval_landmarking(const char *predicted_gallery, const char *truth_gallery, const char *csv, int normalization_index_a, int normalization_index_b, int sample_index, int total_examples)
@@ -225,6 +225,11 @@ bool br_plot_metadata(int num_files, const char *files[], const char *columns, b
 bool br_plot_knn(int num_files, const char *files[], const char *destination, bool show)
 {
     return PlotKNN(QtUtils::toStringList(num_files, files), destination, show);
+}
+
+bool br_plot_eer(int num_files, const char *files[], const char *destination, bool show)
+{
+    return PlotEER(QtUtils::toStringList(num_files, files), destination, show);
 }
 
 float br_progress()
@@ -330,7 +335,7 @@ void br_slave_process(const char *baseName)
 br_template br_load_img(const char *data, int len)
 {
     std::vector<char> buf(data, data+len);
-    cv::Mat img = cv::imdecode(cv::Mat(buf), CV_LOAD_IMAGE_COLOR);
+    cv::Mat img = cv::imdecode(cv::Mat(buf), cv::IMREAD_COLOR);
     Template *tmpl = new Template(img);
     return (br_template)tmpl;
 }
